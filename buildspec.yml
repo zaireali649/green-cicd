@@ -4,3 +4,5 @@ phases:
   build:
     commands:
       - aws s3api put-object --bucket green-cicd-beta --key index.html --body index.html --acl public-read --content-type text/html
+      - if [ "$CODEBUILD_WEBHOOK_EVENT" == "PULL_REQUEST_MERGED" ]  ; 
+        then aws s3api put-object --bucket green-cicd-prod --key index.html --body index.html --acl public-read --content-type text/html; fi
